@@ -3,13 +3,14 @@ import styles from '../style.module.css';
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind( styles );
-
+var path = url.pathname;
+var pagetitle = path.replace("-"," ");
 export default function EventList( { events, attributes } ) {
 	const { signUpButtonBackgroundColor, noEventsText } = attributes;
 
 	return (
 		<div className={ cx( 'flex', 'flex-wrap', 'justify-center' ) }>
-			{ events?.length > 0 ? (
+			{ events?.length > 0 && event.name.text.search(pagetitle) > 0 ? (
 				events.map( ( event ) => (
 					<Event
 						key={ event.id }
