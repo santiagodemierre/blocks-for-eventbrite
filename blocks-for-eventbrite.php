@@ -84,6 +84,22 @@ add_action('init', function () {
     ));
 });
 
+
+/**
+
+
+
+*/
+
+function current_event()
+{
+    $url      = $_SERVER['REQUEST_URI'];
+	$mytitle = str_replace("-", "+", $url);
+    return $mytitle;
+}
+//echo "page URL is : ".current_event();
+
+$name_filter = current_event();
 /**
  * Add a block category for "Eventbrite Blocks" if it doesn't exist already.
  *
@@ -131,7 +147,7 @@ function render_blocks_for_eventbrite_card($attributes)
         $orderBy = $attributes['orderBy'] ? $attributes['orderBy'] : 'start_asc';
 
         // make GET request to eventbrite api based on user's attribute settings
-        $response = wp_remote_get("https://www.eventbriteapi.com/v3/users/me/events/?token={$attributes['apiKey']}&expand=ticket_classes,venue&status={$status}&order_by={$orderBy}&time_filter=current_future");
+        $response = wp_remote_get("https://www.eventbriteapi.com/v3/users/me/events/?token={$attributes['apiKey']}&name_filter={$name_filter}&expand=ticket_classes,venue&status={$status}&order_by={$orderBy}&time_filter=current_future");
 
         // decode fetched data to json
         $data = json_decode($response['body'], true);
